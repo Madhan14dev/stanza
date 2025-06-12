@@ -245,7 +245,7 @@ def train(args):
 
     # load data
     logger.info("Loading training data with batch size %d from %s", args['batch_size'], args['train_file'])
-    with open(args['train_file']) as fin:
+    with open(args['train_file'], encoding="utf-8") as fin:
         train_doc = Document(json.load(fin))
     logger.info("Loaded %d sentences of training data", len(train_doc.sentences))
     if len(train_doc.sentences) == 0:
@@ -253,7 +253,7 @@ def train(args):
     train_batch = DataLoader(train_doc, args['batch_size'], args, pretrain, vocab=vocab, evaluation=False, scheme=args.get('train_scheme'), max_batch_words=args['max_batch_words'])
     vocab = train_batch.vocab
     logger.info("Loading dev data from %s", args['eval_file'])
-    with open(args['eval_file']) as fin:
+    with open(args['eval_file'], encoding="utf-8") as fin:
         dev_doc = Document(json.load(fin))
     logger.info("Loaded %d sentences of dev data", len(dev_doc.sentences))
     if len(dev_doc.sentences) == 0:
